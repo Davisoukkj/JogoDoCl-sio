@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://crgspv5pmd0us"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_617nu"]
+[ext_resource type="Texture2D" uid="uid://cygv6va07a827" path="res://assets/player_idle-01.png" id="1_on6pk"]
+[ext_resource type="Texture2D" uid="uid://pprymfll6xm8" path="res://assets/player_idle-02.png" id="2_k70cd"]
+[ext_resource type="Texture2D" uid="uid://2hytw5mf332" path="res://assets/player_idle-03.png" id="3_v72jb"]
+[ext_resource type="Texture2D" uid="uid://ders0i18yuvii" path="res://assets/player_move-01.png" id="4_v2b5c"]
+[ext_resource type="Texture2D" uid="uid://ddhvkm02crdyg" path="res://assets/player_move-02.png" id="5_undrk"]
+[ext_resource type="Texture2D" uid="uid://suwb8m78h7ty" path="res://assets/player_down-01.png" id="6_w0fyk"]
+[ext_resource type="Texture2D" uid="uid://h272s26e08hc" path="res://assets/player_down-02.png" id="7_v0rkw"]
+[ext_resource type="Texture2D" uid="uid://bv22jkmqp6855" path="res://assets/player_up-01.png" id="8_7jn6p"]
+[ext_resource type="Texture2D" uid="uid://dil2qiwuadvwv" path="res://assets/player_up-02.png" id="9_mkwjp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83nx6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_on6pk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_k70cd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_v72jb")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_v2b5c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_undrk")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_w0fyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v0rkw")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_7jn6p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_mkwjp")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_83kh5"]
+radius = 24.0208
+
+[node name="Player" type="Area2D"]
+position = Vector2(94, 100)
+collision_mask = 2
+script = ExtResource("1_617nu")
+
+[node name="Anim" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_83nx6")
+animation = &"move"
+autoplay = "idle"
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_83kh5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
